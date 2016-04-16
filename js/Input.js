@@ -25,9 +25,6 @@ function setKeyHoldState(keyCode, spaceShip, setTo) {
     if (keyCode === spaceShip.controlKeyForGas) {
         spaceShip.keyHeld_Gas = setTo;
     }
-    if (keyCode === spaceShip.controlKeyForBreak) {
-        spaceShip.keyHeld_Reverse = setTo;
-    }
     if (keyCode === spaceShip.controlKeyForTurnRight) {
         spaceShip.keyHeld_TurnRight = setTo;
     }
@@ -40,6 +37,6 @@ function initInput() {
     document.addEventListener("keydown", keyPressed);
     document.addEventListener("keyup", keyReleased);
 
-    player1.setUpControls(KEY_UP_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW);
+    player1.setUpControls(KEY_UP_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW);
 
 }

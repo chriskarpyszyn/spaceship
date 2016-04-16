@@ -1,8 +1,6 @@
-const SPEED_DECAY_MULT = 0.94;
-const DRIVE_POWER = 0.5;
-const REVERSE_POWER = 0.2;
+const SPEED_DECAY_MULT = 0.99;
+const THRUST_POWER = 0.15;
 const TURN_RATE = 0.03;
-const MIN_TURN_SPEED = 0.5;
 
 const INITIAL_SPEED = 0;
 const INITIAL_ANGLE = -0.5 * Math.PI;
@@ -25,32 +23,21 @@ function SpaceShipClass() {
         this.reset();
     }
 
-    this.setUpControls = function (forwardKey, backKey, leftKey, rightKey) {
+    this.setUpControls = function (forwardKey, leftKey, rightKey) {
         this.controlKeyForGas = forwardKey;
-        this.controlKeyForBreak = backKey;
         this.controlKeyForTurnLeft = leftKey;
         this.controlKeyForTurnRight = rightKey;
     }
 
     this.move = function() {
         if (this.keyHeld_Gas) {
-            this.speed += DRIVE_POWER;
+            this.speed += THRUST_POWER;
         }
-
-        if (this.keyHeld_Reverse) {
-            this.speed += -REVERSE_POWER;
-        }
-
         if (this.keyHeld_TurnRight) {
-            if (Math.abs(this.speed) > MIN_TURN_SPEED) {
-                this.angle += TURN_RATE * Math.PI;
-            }
+            this.angle += TURN_RATE * Math.PI;
         }
-
         if (this.keyHeld_TurnLeft) {
-            if (Math.abs(this.speed) > MIN_TURN_SPEED) {
                 this.angle += -TURN_RATE * Math.PI;
-            }
         }
         const nextX = this.x + Math.cos(this.angle) * this.speed;
         const nextY = this.y + Math.sin(this.angle) * this.speed;
