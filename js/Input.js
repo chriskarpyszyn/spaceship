@@ -21,18 +21,18 @@ function keyReleased(evt) {
     setKeyHoldState(evt.keyCode, player1, false);
 }
 
-function setKeyHoldState(keyCode, car, setTo) {
-    if (keyCode === car.controlKeyForGas) {
-        car.keyHeld_Gas = setTo;
+function setKeyHoldState(keyCode, spaceShip, setTo) {
+    if (keyCode === spaceShip.controlKeyForGas) {
+        spaceShip.keyHeld_Gas = setTo;
     }
-    if (keyCode === car.controlKeyForBreak) {
-        car.keyHeld_Reverse = setTo;
+    if (keyCode === spaceShip.controlKeyForBreak) {
+        spaceShip.keyHeld_Reverse = setTo;
     }
-    if (keyCode === car.controlKeyForTurnRight) {
-        car.keyHeld_TurnRight = setTo;
+    if (keyCode === spaceShip.controlKeyForTurnRight) {
+        spaceShip.keyHeld_TurnRight = setTo;
     }
-    if (keyCode === car.controlKeyForTurnLeft) {
-        car.keyHeld_TurnLeft = setTo;
+    if (keyCode === spaceShip.controlKeyForTurnLeft) {
+        spaceShip.keyHeld_TurnLeft = setTo;
     }
 }
 

@@ -58,13 +58,31 @@ function SpaceShipClass() {
         this.y = nextY;
 
         this.speed *= SPEED_DECAY_MULT;
+
+        this.handleScreenWrrap();
+    }
+
+    this.handleScreenWrrap = function() {
+        if (this.x < 0) {
+            this.x += canvas.width;
+        }
+        if (this.x > canvas.width) {
+            this.x -= canvas.width;
+        }
+        if (this.y < 0) {
+            this.y += canvas.height;
+        }
+        if (this.y > canvas.height) {
+            this.y -= canvas.height;
+        }
     }
 
     this.reset = function() {
         this.speed = INITIAL_SPEED;
         this.angle = INITIAL_ANGLE;
 
-
+        this.x = canvas.width / 2;
+        this.y = canvas.height / 2;
     }
 
     this.drawPlayer = function() {
