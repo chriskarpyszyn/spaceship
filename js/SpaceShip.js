@@ -6,8 +6,6 @@ const INITIAL_SPEED = 0;
 const INITIAL_ANGLE = -0.5 * Math.PI;
 
 function SpaceShipClass() {
-    this.x = 75;
-    this.y = 75;
 
     //control
     this.keyHeld_Gas = false;
@@ -15,7 +13,6 @@ function SpaceShipClass() {
     this.keyHeld_TurnLeft = false;
     this.keyHeld_TurnRight = false;
 
-    this.speed = 0;
     this.angle = 0;
 
     this.init = function (whichGraphic) {
@@ -31,41 +28,44 @@ function SpaceShipClass() {
 
     this.move = function() {
         if (this.keyHeld_Gas) {
-            this.speed += THRUST_POWER;
+            this.velocityX += Math.cos(this.angle) * THRUST_POWER;
+            this.velocityY += Math.sin(this.angle) * THRUST_POWER;
         }
         if (this.keyHeld_TurnRight) {
             this.angle += TURN_RATE * Math.PI;
         }
         if (this.keyHeld_TurnLeft) {
-                this.angle += -TURN_RATE * Math.PI;
+            this.angle += -TURN_RATE * Math.PI;
         }
-        const nextX = this.x + Math.cos(this.angle) * this.speed;
-        const nextY = this.y + Math.sin(this.angle) * this.speed;
-        this.x = nextX;
-        this.y = nextY;
 
-        this.speed *= SPEED_DECAY_MULT;
+        this.x += this.velocityX;
+        this.y += this.velocityY;
 
-        this.handleScreenWrrap();
+        this.handleScreenWrap();
+
+        this.velocityX *= SPEED_DECAY_MULT;
+        this.velocityY *= SPEED_DECAY_MULT;
     }
 
-    this.handleScreenWrrap = function() {
+    this.handleScreenWrap = function() {
         if (this.x < 0) {
             this.x += canvas.width;
         }
-        if (this.x > canvas.width) {
+         else if (this.x > canvas.width) {
             this.x -= canvas.width;
         }
         if (this.y < 0) {
             this.y += canvas.height;
         }
-        if (this.y > canvas.height) {
+        else if (this.y > canvas.height) {
             this.y -= canvas.height;
         }
     }
 
     this.reset = function() {
-        this.speed = INITIAL_SPEED;
+        this.velocityX = 0.0;
+        this.velocityY = 0.0;
+
         this.angle = INITIAL_ANGLE;
 
         this.x = canvas.width / 2;
