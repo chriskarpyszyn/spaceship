@@ -40,7 +40,6 @@ function ShotClass() {
     }
 
     this.shootFrom = function(playerShip) {
-        if (this.shotLife === 0) {
             this.x = playerShip.x;
             this.y = playerShip.y;
 
@@ -48,7 +47,10 @@ function ShotClass() {
             this.yVelocity = Math.sin(playerShip.angle) * SHOT_SPEED + playerShip.velocityY;
 
             this.shotLife = SHOT_LIFE;
-        }
+    }
+
+    this.isShotReadyToFire  = function() {
+        return (this.shotLife <= 0);
     }
 
     this.drawShot = function() {

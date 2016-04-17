@@ -85,6 +85,8 @@ function SpaceShipClass() {
     }
 
     this.fireShot = function() {
-        this.myShot.shootFrom(this);
+        if (this.myShot.isShotReadyToFire()) {
+            this.myShot.shootFrom(this);
+        }
     }
 }
