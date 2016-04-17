@@ -13,17 +13,22 @@ function SpaceShipClass() {
     this.keyHeld_TurnLeft = false;
     this.keyHeld_TurnRight = false;
 
+    this.myShot = new ShotClass();
+
     this.angle = 0;
 
     this.init = function (whichGraphic) {
         this.myBitmap = whichGraphic;
         this.reset();
+
+        this.myShot.reset();
     }
 
-    this.setUpControls = function (forwardKey, leftKey, rightKey) {
+    this.setUpControls = function (forwardKey, leftKey, rightKey, shotKey) {
         this.controlKeyForGas = forwardKey;
         this.controlKeyForTurnLeft = leftKey;
         this.controlKeyForTurnRight = rightKey;
+        this.controlKeyForShot = shotKey;
     }
 
     this.move = function() {
@@ -45,6 +50,8 @@ function SpaceShipClass() {
 
         this.velocityX *= SPEED_DECAY_MULT;
         this.velocityY *= SPEED_DECAY_MULT;
+
+        this.myShot.move();
     }
 
     this.handleScreenWrap = function() {
@@ -73,6 +80,11 @@ function SpaceShipClass() {
     }
 
     this.drawPlayer = function() {
+        this.myShot.drawShot();
         drawBitmapCenteredAtLocationWithRotation(this.myBitmap, this.x, this.y, this.angle);
+    }
+
+    this.fireShot = function() {
+        this.myShot.shootFrom(this);
     }
 }

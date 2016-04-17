@@ -8,12 +8,16 @@ const KEY_LETTER_A = 65;
 const KEY_LETTER_S = 83;
 const KEY_LETTER_D = 68;
 
-
+const KEY_SPACEBAR = 32;
 
 function keyPressed(evt) {
     //document.getElementById("debugText").innerHTML = "keyCode Pushed: " + evt.keyCode;
     setKeyHoldState(evt.keyCode, player1, true);
     evt.preventDefault(); //stops the default behavior of arrow keys
+
+    if (evt.keyCode == player1.controlKeyForShot) {
+        player1.fireShot();
+    }
 }
 
 function keyReleased(evt) {
@@ -37,6 +41,6 @@ function initInput() {
     document.addEventListener("keydown", keyPressed);
     document.addEventListener("keyup", keyReleased);
 
-    player1.setUpControls(KEY_UP_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW);
+    player1.setUpControls(KEY_UP_ARROW, KEY_LEFT_ARROW, KEY_RIGHT_ARROW, KEY_SPACEBAR);
 
 }
