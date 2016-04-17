@@ -17,6 +17,9 @@ function ShotClass() {
 
     this.move = function() {
         if (this.shotLife > 0) {
+            this.x += this.xVelocity;
+            this.y += this.yVelocity;
+            this.handleScreenWrap();
             this.shotLife--;
         }
     }
@@ -40,8 +43,10 @@ function ShotClass() {
         if (this.shotLife === 0) {
             this.x = playerShip.x;
             this.y = playerShip.y;
-            this.xv = 0;
-            this.yv = 0;
+
+            this.xVelocity = Math.cos(playerShip.angle) * SHOT_SPEED + playerShip.velocityX;
+            this.yVelocity = Math.sin(playerShip.angle) * SHOT_SPEED + playerShip.velocityY;
+
             this.shotLife = SHOT_LIFE;
         }
     }
