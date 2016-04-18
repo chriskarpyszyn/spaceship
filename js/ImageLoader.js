@@ -1,11 +1,13 @@
 var playerPic = document.createElement("img");
+var UFOPic = document.createElement("img");
 var trackPics = [];
 
 var picsToLoad = 0;
 
 function loadImages() {
     const imageList = [
-        { varName: playerPic, fileName: "player1.png" }
+        { varName: playerPic, fileName: "player1.png" },
+        { varName: UFOPic, fileName: "ufo.png" }
     ];
     picsToLoad = imageList.length;
 
