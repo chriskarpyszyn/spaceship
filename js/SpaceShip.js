@@ -5,6 +5,7 @@ const TURN_RATE = 0.03;
 const INITIAL_SPEED = 0;
 const INITIAL_ANGLE = -0.5 * Math.PI;
 
+SpaceShipClass.prototype = new MovingWrapPosition();
 function SpaceShipClass() {
 
     //control
@@ -31,10 +32,11 @@ function SpaceShipClass() {
         this.controlKeyForShot = shotKey;
     }
 
+    this.superClassMove = this.move;
     this.move = function() {
         if (this.keyHeld_Gas) {
-            this.velocityX += Math.cos(this.angle) * THRUST_POWER;
-            this.velocityY += Math.sin(this.angle) * THRUST_POWER;
+            this.xVelocity += Math.cos(this.angle) * THRUST_POWER;
+            this.yVelocity += Math.sin(this.angle) * THRUST_POWER;
         }
         if (this.keyHeld_TurnRight) {
             this.angle += TURN_RATE * Math.PI;
@@ -43,40 +45,22 @@ function SpaceShipClass() {
             this.angle += -TURN_RATE * Math.PI;
         }
 
-        this.x += this.velocityX;
-        this.y += this.velocityY;
+        this.superClassMove();
 
         this.handleScreenWrap();
 
-        this.velocityX *= SPEED_DECAY_MULT;
-        this.velocityY *= SPEED_DECAY_MULT;
+        this.xVelocity *= SPEED_DECAY_MULT;
+        this.yVelocity *= SPEED_DECAY_MULT;
 
         this.myShot.move();
     }
 
-    this.handleScreenWrap = function() {
-        if (this.x < 0) {
-            this.x += canvas.width;
-        }
-         else if (this.x > canvas.width) {
-            this.x -= canvas.width;
-        }
-        if (this.y < 0) {
-            this.y += canvas.height;
-        }
-        else if (this.y > canvas.height) {
-            this.y -= canvas.height;
-        }
-    }
-
-    this.reset = function() {
-        this.velocityX = 0.0;
-        this.velocityY = 0.0;
-
-        this.angle = INITIAL_ANGLE;
-
+    this.superclassReset = this.reset;
+    this.reset = function () {
+        this.superclassReset();
         this.x = canvas.width / 2;
         this.y = canvas.height / 2;
+        this.angle = INITIAL_ANGLE;
     }
 
     this.drawPlayer = function() {

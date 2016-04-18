@@ -2,6 +2,7 @@ const SHOT_SPEED = 6.0;
 const SHOT_LIFE = 30;
 const SHOT_DISPLAY_RADIUS = 2.0;
 
+ShotClass.prototype = new MovingWrapPosition();
 function ShotClass() {
 
     this.angle = 0;
@@ -15,36 +16,20 @@ function ShotClass() {
         this.shotLife = 0;
     }
 
-    this.move = function() {
+    this.superclassMove = this.move; //save a reference to the parent class's move function
+    this.move = function () {
         if (this.shotLife > 0) {
-            this.x += this.xVelocity;
-            this.y += this.yVelocity;
-            this.handleScreenWrap();
             this.shotLife--;
+            this.superclassMove();
         }
     }
 
-    this.handleScreenWrap = function() {
-        if (this.x < 0) {
-            this.x += canvas.width;
-        }
-         else if (this.x > canvas.width) {
-            this.x -= canvas.width;
-        }
-        if (this.y < 0) {
-            this.y += canvas.height;
-        }
-        else if (this.y > canvas.height) {
-            this.y -= canvas.height;
-        }
-    }
-
-    this.shootFrom = function(playerShip) {
+    this.shootFrom = function (playerShip) {
             this.x = playerShip.x;
             this.y = playerShip.y;
 
-            this.xVelocity = Math.cos(playerShip.angle) * SHOT_SPEED + playerShip.velocityX;
-            this.yVelocity = Math.sin(playerShip.angle) * SHOT_SPEED + playerShip.velocityY;
+            this.xVelocity = Math.cos(playerShip.angle) * SHOT_SPEED + playerShip.xVelocity;
+            this.yVelocity = Math.sin(playerShip.angle) * SHOT_SPEED + playerShip.yVelocity;
 
             this.shotLife = SHOT_LIFE;
     }
