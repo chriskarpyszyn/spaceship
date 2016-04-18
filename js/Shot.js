@@ -43,4 +43,11 @@ function ShotClass() {
             colorCircle(this.x, this.y, SHOT_DISPLAY_RADIUS, "#FFFFFF");
         }
     }
+
+    this.hitTest = function(thisEnemy) {
+        if (this.shotLife <= 0) {
+            return false;
+        }
+        return thisEnemy.isOverlappingPoint(this.x, this.y);
+    }
 }

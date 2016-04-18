@@ -17,6 +17,8 @@ window.onload = function () {
 function move() {
     player1.move();
     enemy.move();
+
+    player1.checkShipAndShotCollisionAgainst(enemy);
 }
 
 function draw() {

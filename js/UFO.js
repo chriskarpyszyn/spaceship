@@ -1,5 +1,6 @@
 const UFO_SPEED = 1.9;
 const UFO_TIME_BETWEEN_DIRECTION_CHANGE = 85;
+const UFO_COLLISION_RADIUS = 13;
 
 UFO.prototype = new MovingWrapPosition();
 function UFO() {
@@ -43,5 +44,12 @@ function UFO() {
 
     this.fireShot = function() {
 
+    }
+
+    this.isOverlappingPoint = function(testX, testY) {
+        var deltaX = testX - this.x;
+        var deltaY = testY - this.y;
+        var dist = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+        return (dist <= UFO_COLLISION_RADIUS);
     }
 }
